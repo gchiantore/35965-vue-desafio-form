@@ -86,37 +86,32 @@ export default {
     },    
     methods: {
         formValidate() {
-            console.log(this.objproducto.riddingtype.length)
-        if(this.objproducto.producto && this.objproducto.riddingtype.length!=0 && this.objproducto.tamano){
-            alert("Enviando formulario!");
+            if(this.objproducto.producto && this.objproducto.riddingtype.length!=0 && this.objproducto.tamano){
+                setTimeout(() => {
+                    this.$emit("enviar",this.objproducto);
+                    document.getElementById("productform").reset();
+                    Object.assign(this.$data, this.$options.data());
+                }, 1000);
+                return true;
+            }
+            if(!this.objproducto.producto){
+                this.errores.push("El nombre del producto es necesario ");
+            }
+            if(!this.objproducto.tamano){
+                this.errores.push("Debes seleccionar un Tamaño");
+            }
+            if(this.objproducto.riddingtype.length == 0){
+                this.errores.push("Debes elegir un tipo de Ridding")
+            } 
             setTimeout(() => {
-                console.log("Entro Aqui!")
-                this.$emit("enviar",this.objproducto);
-                document.getElementById("productform").reset();
-                Object.assign(this.$data, this.$options.data());
+                this.errores=[];
             }, 3000);
-            return true;
-        }
-        if(!this.objproducto.producto){
-            this.errores.push("El nombre del producto es necesario ");
-        }
-        if(!this.objproducto.tamano){
-            this.errores.push("Debes seleccionar un Tamaño");
-        }
-        if(this.objproducto.riddingtype.length == 0){
-            this.errores.push("Debes elegir un tipo de Ridding")
-        } 
-        setTimeout(() => {
-            this.errores=[];
-        }, 3000);
-
-        console.log("pasa de largo   "+this.objproducto.producto + this.objproducto.riddingtype)    
         }
         
     },
     computed: {
         showErrors() {
-            let formErrores=this.errores.join(" ");
+            let formErrores=this.errores.join(" <---> ");
             return formErrores;
         }
     },

@@ -19,10 +19,10 @@
             <tbody>
                 <tr v-for="(item, i) of productos" :key="i">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{item[i].producto}}</td>
-                    <td>{{item[i].tamano}}</td>
-                    <td>{{item[i].riddingtype}}</td>
-                    <td>{{item[i].activo}}</td>
+                    <td>{{item.producto}}</td>
+                    <td>{{item.tamano}}</td>
+                    <td>{{item.riddingtype.join(", ")}}</td>
+                    <td>{{item.activo}}</td>
                 </tr>
             </tbody>
         </table>
